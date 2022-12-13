@@ -13,9 +13,9 @@
 //!     .map(std::io::BufReader::new)
 //!     .unwrap();
 //!   // use re-exported version of `CookieStore` for crate compatibility
-//!   reqwest_cookie_store::CookieStore::load_json(file).unwrap()
+//!   reqwestls_cookie_store::CookieStore::load_json(file).unwrap()
 //! };
-//! let cookie_store = reqwest_cookie_store::CookieStoreMutex::new(cookie_store);
+//! let cookie_store = reqwestls_cookie_store::CookieStoreMutex::new(cookie_store);
 //! let cookie_store = std::sync::Arc::new(cookie_store);
 //! {
 //!   // Examine initial contents
@@ -26,8 +26,8 @@
 //!   }
 //! }
 //!
-//! // Build a `reqwest` Client, providing the deserialized store
-//! let client = reqwest::Client::builder()
+//! // Build a `reqwestls` Client, providing the deserialized store
+//! let client = reqwestls::Client::builder()
 //!     .cookie_provider(std::sync::Arc::clone(&cookie_store))
 //!     .build()
 //!     .unwrap();
@@ -82,7 +82,7 @@ use std::{
 use bytes::Bytes;
 use cookie::{Cookie as RawCookie, ParseError as RawCookieParseError};
 pub use cookie_store::CookieStore;
-use reqwest::header::HeaderValue;
+use reqwestls::header::HeaderValue;
 use url;
 
 fn set_cookies(
@@ -145,7 +145,7 @@ impl CookieStoreMutex {
     }
 }
 
-impl reqwest::cookie::CookieStore for CookieStoreMutex {
+impl reqwestls::cookie::CookieStore for CookieStoreMutex {
     fn set_cookies(&self, cookie_headers: &mut dyn Iterator<Item = &HeaderValue>, url: &url::Url) {
         let mut store = self.0.lock().unwrap();
         set_cookies(&mut store, cookie_headers, url);
@@ -197,7 +197,7 @@ impl CookieStoreRwLock {
     }
 }
 
-impl reqwest::cookie::CookieStore for CookieStoreRwLock {
+impl reqwestls::cookie::CookieStore for CookieStoreRwLock {
     fn set_cookies(&self, cookie_headers: &mut dyn Iterator<Item = &HeaderValue>, url: &url::Url) {
         let mut write = self.0.write().unwrap();
         set_cookies(&mut write, cookie_headers, url);
