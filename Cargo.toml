@@ -1,5 +1,5 @@
 [package]
-name = "reqwest_cookie_store"
+name = "reqwestls_cookie_store"
 version = "0.5.0" # managed by release.sh
 authors = ["Patrick Fernie <patrick.fernie@gmail.com>"]
 edition = "2018"
