@@ -20,7 +20,7 @@ rustdoc-args = ["--cfg", "docsrs"]
 bytes = "1.0.1"
 cookie = "0.16.1"
 cookie_store = "0.19.0"
-reqwestls = { git = "https://github.com/ignassew/reqwestls", features = ["cookies"] }
+reqwestls = { git = "https://github.com/ignassew/reqwestls", default_features = false, features = ["cookies"] }
 url = "2.2.2"
 
 [dev-dependencies]
